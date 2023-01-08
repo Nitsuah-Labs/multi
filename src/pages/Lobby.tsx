@@ -3,8 +3,8 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Text, Stats } from '@react-three/drei'
 import { MeshNormalMaterial, BoxBufferGeometry } from 'three'
 import { io } from 'socket.io-client'
-
-import './App.css'
+import Footer from "../components/Footer"
+import '../styles/App.css'
 
 const ControlsWrapper = ({ socket }) => {
     const controlsRef = useRef()
@@ -59,7 +59,7 @@ const UserWrapper = ({ position, rotation, id }) => {
             {/* Optionally show the ID above the user's mesh */}
             <Text
                 position={[0, 1.0, 0]}
-                color="black"
+                color="white"
                 anchorX="center"
                 anchorY="middle"
             >
@@ -69,7 +69,7 @@ const UserWrapper = ({ position, rotation, id }) => {
     )
 }
 
-function App() {
+function Lobby() {
     const [socketClient, setSocketClient] = useState(null)
     const [clients, setClients] = useState({})
 
@@ -93,11 +93,10 @@ function App() {
 
     return (
         socketClient && (
-            <Canvas camera={{ position: [0, 1, -5], near: 0.1, far: 1000 }}>
+            <div className="App"><Canvas camera={{ position: [0, 1, -5], near: 0.1, far: 1000 }}>
                 <Stats />
                 <ControlsWrapper socket={socketClient} />
                 <gridHelper rotation={[0, 0, 0]} />
-
                 {/* Filter myself from the client list and create user boxes with IDs */}
                 {Object.keys(clients)
                     .filter((clientKey) => clientKey !== socketClient.id)
@@ -105,7 +104,6 @@ function App() {
                         const { position, rotation } = clients[client]
                         return (
                             <UserWrapper
-                                key={client}
                                 id={client}
                                 position={position}
                                 rotation={rotation}
@@ -113,8 +111,9 @@ function App() {
                         )
                     })}
             </Canvas>
+            <Footer/></div>
         )
     )
 }
 
-export default App
+export default Lobby

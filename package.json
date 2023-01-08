@@ -7,9 +7,12 @@
         "format": "prettier --write \"src/*.{js,jsx,json,md,ts,tsx,css}\""
     },
     "dependencies": {
+        "@splinetool/react-spline": "^2.2.1",
+        "@splinetool/runtime": "^0.9.82",
         "express": "^4.17.1",
         "express-promise-router": "^4.1.0",
         "prettier": "^2.4.1",
+        "react-router-dom": "^6.3.0",
         "socket.io": "^4.3.2",
         "vite": "^2.6.14"
     },
